@@ -1,0 +1,18 @@
+dataset: transactions
+
+checks:
+  - type: null_check
+    column: transaction_id
+
+  - type: null_check
+    column: customer_id
+
+  - type: null_check
+    column: amount
+
+  - type: duplicate_check
+    column: transaction_id
+
+  - type: range_check
+    column: amount
+    min: 0

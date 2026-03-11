@@ -1,0 +1,10 @@
+dataset: transactions
+
+schema:
+  transaction_id: object
+  customer_id: object
+  transaction_time: datetime64[ns]
+  amount: float64
+  merchant: object
+  location: object
+  fraud_label: int64
