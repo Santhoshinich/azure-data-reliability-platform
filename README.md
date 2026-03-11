@@ -1,4 +1,4 @@
-\# Azure Data Reliability Platform
+# Azure Data Reliability Platform
 
 
 
@@ -14,7 +14,7 @@ The system simulates a financial transaction pipeline and validates data reliabi
 
 
 
-\## Project Goals
+## Project Goals
 
 
 
@@ -32,7 +32,7 @@ The system simulates a financial transaction pipeline and validates data reliabi
 
 
 
-\## Dataset
+## Dataset
 
 
 
@@ -44,19 +44,19 @@ Dataset fields used:
 
 
 
-transaction\_id  
+\- transaction_id  
 
-customer\_id  
+\- customer_id  
 
-transaction\_time  
+\- transaction_time  
 
-amount  
+\- amount  
 
-merchant  
+\- merchant  
 
-location  
+\- location  
 
-fraud\_label  
+\- fraud_label  
 
 
 
@@ -64,7 +64,7 @@ fraud\_label
 
 
 
-\## Data Architecture
+## Data Architecture
 
 
 
@@ -86,7 +86,7 @@ Raw Data
 
 
 
-\## Data Quality Checks Implemented
+## Data Quality Checks Implemented
 
 
 
@@ -108,14 +108,27 @@ These checks are executed through a \*\*config-driven validation framework using
 
 
 
-\## Project Structure
+## Repo Structure
 
 azure-data-reliability-platform/
-data/
-scripts/
-data_quality/
-config/
 
+scripts/
+    prepare_dataset.py
+
+data_quality/
+    validation_engine.py
+    checks/
+    rules/
+
+monitoring/
+    row_count_monitor.py
+
+config/
+    schema_contract.yaml
+
+README.md
+requirements.txt
+.gitignore
 
 
 
@@ -123,20 +136,27 @@ config/
 
 ## Technologies Used
 
-Python  
-Pandas  
-PyYAML  
-Parquet  
-Git
+\- Python 
+ 
+\- Pandas
+  
+\- PyYAML
+  
+\- Parquet
+  
+\- Git
 
 ---
 
 ## Future Enhancements
 
-- Data anomaly detection
-- ML model validation
-- CI/CD pipeline testing
-- Data observability metrics
+\- Data anomaly detection
+
+\- ML model validation
+
+\- CI/CD pipeline testing
+
+\- Data observability metrics
 
 ---
 
@@ -151,15 +171,6 @@ python scripts/prepare_dataset.py
 
 python data_quality/validation_engine.py
 
----
-
-## Dataset
-
-Download the Credit Card Fraud Detection dataset from Kaggle:
-
-https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
-
-
 
 
 ---
@@ -168,7 +179,7 @@ https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
 Santhoshini Ch
 
-Portfolio project demonstrating **data engineering and data reliability platform design**.
+Portfolio project demonstrating **Data engineering and data reliability platform design**.
 
 
 
