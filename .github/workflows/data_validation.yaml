@@ -1,0 +1,37 @@
+name: Data Validation Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-data:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Prepare dataset
+      run: |
+        python scripts/prepare_dataset.py
+
+    - name: Run data quality validation
+      run: |
+        python data_quality/validation_engine.py
+
+    - name: Run row count monitoring
+      run: |
+        python monitoring/row_count_monitor.py
