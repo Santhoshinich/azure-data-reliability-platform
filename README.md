@@ -151,6 +151,20 @@ python scripts/prepare_dataset.py
 
 python data_quality/validation_engine.py
 
+---
+
+## Dataset
+
+Download the Credit Card Fraud Detection dataset from Kaggle:
+
+https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+Place the file here:
+
+data/raw/creditcard.csv
+
+
+
 
 ---
 
