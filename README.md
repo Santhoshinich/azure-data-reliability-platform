@@ -171,6 +171,10 @@ python scripts/prepare_dataset.py
 
 python data_quality/validation_engine.py
 
+3. Run monitoring row count
+
+python monitoring/row_count_monitor.py
+
 
 
 ---
