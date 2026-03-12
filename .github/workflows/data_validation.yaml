@@ -45,6 +45,10 @@ jobs:
       run: |
         pytest
 
+    - name: Show repo files
+      run: |
+        ls -R
+
     - name: Train ML model
       run: |
         python ml/train_model.py
