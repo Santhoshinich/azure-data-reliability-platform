@@ -45,6 +45,10 @@ jobs:
       run: |
         python monitoring/data_drift_monitor.py
 
+    - name: Run distribution drift detection
+      run: |
+        python monitoring/distribution_drift_monitor.py
+
     - name: Train ML model
       run: |
         python ml/train_model.py
