@@ -47,6 +47,8 @@ df = df[
 ]
 ]
 
+bronze_path.parent.mkdir(parents=True, exist_ok=True)
+
 # Save bronze dataset
 df.to_parquet(bronze_path,index=False)
 
