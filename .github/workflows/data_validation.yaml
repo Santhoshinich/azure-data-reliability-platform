@@ -44,3 +44,11 @@ jobs:
     - name: Run pytest tests
       run: |
         pytest
+
+    - name: Train ML model
+      run: |
+        python ml/train_model.py
+
+    - name: Evaluate model
+      run: |
+        python ml/evaluate_model.py

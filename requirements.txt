@@ -3,3 +3,4 @@ pyarrow
 pyyaml
 pytest
 scikit-learn
+joblib
