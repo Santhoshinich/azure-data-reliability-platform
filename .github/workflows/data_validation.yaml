@@ -40,14 +40,10 @@ jobs:
     - name: Run row count monitoring
       run: |
         python monitoring/row_count_monitor.py
-      
-    - name: Run pytest tests
-      run: |
-        pytest
 
-    - name: Show repo files
+    - name: Run data drift detection
       run: |
-        ls -R
+        python monitoring/data_drift_monitor.py
 
     - name: Train ML model
       run: |
@@ -56,3 +52,7 @@ jobs:
     - name: Evaluate model
       run: |
         python ml/evaluate_model.py
+
+    - name: Run pytest tests
+      run: |
+        pytest
