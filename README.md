@@ -349,7 +349,7 @@ If any step fails, the pipeline stops automatically.
 
 ---
 
-9. ## Observability Dashboard
+# 9. Observability Dashboard
 
 Dashboard built using:
 
