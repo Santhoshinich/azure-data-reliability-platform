@@ -44,23 +44,25 @@ The platform simulates a modern **data + ML reliability architecture**.
 ```
 Git Push
    ↓
-CI Pipeline (GitHub Actions)
+GitHub Actions Runner
    ↓
 Dataset Preparation
    ↓
-Data Quality Validation
+Data Validation
    ↓
-Observability Monitoring
+Monitoring Checks
    ↓
 Distribution Drift Detection
    ↓
-Pipeline Metrics Collection
+Pipeline Metrics Tracking
    ↓
-Machine Learning Model Training
+ML Model Training
    ↓
 Model Evaluation
    ↓
 Automated Tests
+   ↓
+Observability Dashboard
 ```
 
 ---
