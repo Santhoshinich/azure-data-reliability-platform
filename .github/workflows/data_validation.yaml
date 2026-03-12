@@ -40,3 +40,7 @@ jobs:
     - name: Run row count monitoring
       run: |
         python monitoring/row_count_monitor.py
+      
+    - name: Run pytest tests
+      run: |
+        pytest
