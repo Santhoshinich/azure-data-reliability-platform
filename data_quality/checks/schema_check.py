@@ -9,8 +9,12 @@ def run_schema_check(df, expected_schema):
 
         actual_dtype = str(actual_schema[column])
 
-        # treat string types as equivalent
+        # Handle string types
         if expected_dtype in ["object", "str"] and actual_dtype in ["object", "string", "str"]:
+            continue
+
+        # Handle datetime precision differences
+        if expected_dtype.startswith("datetime64") and actual_dtype.startswith("datetime64"):
             continue
 
         if actual_dtype != expected_dtype:
