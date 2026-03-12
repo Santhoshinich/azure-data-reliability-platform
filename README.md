@@ -347,6 +347,33 @@ If any step fails, the pipeline stops automatically.
 
 ---
 
+9. ## Observability Dashboard
+
+Dashboard built using:
+
+Streamlit
+
+File:
+
+```
+dashboard/metrics_dashboard.py
+```
+
+Features:
+
+* pipeline health indicators
+* data trend charts
+* fraud rate monitoring
+* metrics history
+* custom styling and gradient background
+* author branding (Santhoshini Ch)
+
+Run dashboard:
+
+python -m streamlit run dashboard/metrics_dashboard.py
+
+---
+
 # Technologies Used
 
 ### Data Processing
@@ -372,6 +399,10 @@ If any step fails, the pipeline stops automatically.
 
 * GitHub Actions
 
+### Dashboard
+
+* streamlit
+
 ---
 
 # Project Structure
@@ -386,6 +417,9 @@ data_quality/
     validation_engine.py
     checks/
     rules/
+
+dashboard/
+    metrics_dashboard.py
 
 monitoring/
     row_count_monitor.py
@@ -408,6 +442,7 @@ config/
     schema_contract.yaml
 
 metrics/
+    pipeline_metrics.csv
 
 models/
 
@@ -475,7 +510,6 @@ pytest
 
 Planned improvements include
 
-* observability dashboard for pipeline metrics
 * Azure pipeline orchestration
 * experiment tracking for ML models
 * feature store simulation
@@ -513,3 +547,8 @@ Demonstrates experience in:
 * observability monitoring
 * machine learning validation
 * CI/CD automation
+* observability dashboard for pipeline metrics
+
+# Resume Summary
+
+This project simulates a **modern data reliability platform** that validates data pipelines, monitors anomalies and drift, trains ML models, tracks metrics, and visualizes pipeline health through an observability dashboard.
