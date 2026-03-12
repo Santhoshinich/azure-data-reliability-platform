@@ -49,6 +49,10 @@ jobs:
       run: |
         python monitoring/distribution_drift_monitor.py
 
+    - name: Record pipeline metrics
+      run: |
+        python monitoring/pipeline_metrics.py
+
     - name: Train ML model
       run: |
         python ml/train_model.py
