@@ -3,116 +3,151 @@
 ## Overview
 
 This project demonstrates how to build a **data reliability and machine learning validation platform** for analytics pipelines.
-It simulates a financial transaction system where data is ingested, validated, monitored for anomalies, used to train a fraud detection model, and automatically tested through a CI pipeline.
 
-The goal of this project is to showcase **modern data engineering practices**, including:
+The system simulates a financial transaction pipeline where data is:
 
-* automated data quality validation
-* data observability monitoring
-* machine learning model validation
-* automated testing
-* CI pipeline automation
+1. Ingested and transformed
+2. Validated using automated data quality checks
+3. Monitored for anomalies and distribution drift
+4. Used to train a fraud detection ML model
+5. Tested automatically through a CI pipeline
 
-This project is designed as a **portfolio demonstration of data reliability engineering concepts used in production data platforms.**
+The goal of this project is to demonstrate **modern data engineering, data reliability, and MLOps practices** used in production data platforms.
 
 ---
 
 # Problem This Project Solves
 
-Modern data platforms frequently fail due to issues such as:
+Modern data platforms frequently break due to:
 
-* upstream data pipeline failures
 * schema changes in source systems
-* corrupted datasets
-* unexpected data anomalies
-* machine learning model degradation
+* corrupted or incomplete datasets
+* pipeline failures
+* distribution drift in ML features
+* model performance degradation
 
-Without automated validation, these problems can propagate into:
+Without automated checks, these problems propagate into:
 
 * dashboards
 * analytics reports
 * machine learning predictions
 * financial systems
 
-This project demonstrates how a **data reliability system can automatically detect these problems before they impact downstream systems.**
+This project demonstrates how a **data reliability platform can detect these problems automatically before they impact downstream systems.**
 
 ---
 
-# Architecture
+# System Architecture
 
-The platform simulates a modern **data + ML reliability pipeline**.
+The platform simulates a modern **data + ML reliability architecture**.
 
-```text
-                   +--------------------+
-                   |  Raw Dataset (CSV) |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | Data Preparation   |
-                   | prepare_dataset.py |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | Data Validation    |
-                   | validation_engine  |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | Observability      |
-                   | row_count_monitor  |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | ML Training        |
-                   | train_model.py     |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | Model Evaluation   |
-                   | evaluate_model.py  |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | Automated Tests    |
-                   | pytest             |
-                   +--------------------+
-                             |
-                             v
-                   +--------------------+
-                   | CI Pipeline        |
-                   | GitHub Actions     |
-                   +--------------------+
+```
+Git Push
+   ↓
+CI Pipeline (GitHub Actions)
+   ↓
+Dataset Preparation
+   ↓
+Data Quality Validation
+   ↓
+Observability Monitoring
+   ↓
+Distribution Drift Detection
+   ↓
+Pipeline Metrics Collection
+   ↓
+Machine Learning Model Training
+   ↓
+Model Evaluation
+   ↓
+Automated Tests
 ```
 
 ---
 
-# Key Features
+# Detailed Architecture
+
+```
+                   +----------------------+
+                   |     Git Push         |
+                   +----------+-----------+
+                              |
+                              v
+                +----------------------------+
+                | CI Pipeline (GitHub)       |
+                | GitHub Actions Runner      |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Dataset Preparation        |
+                | scripts/prepare_dataset.py |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Data Quality Validation    |
+                | validation_engine.py       |
+                |                            |
+                | • schema validation        |
+                | • null checks              |
+                | • duplicate detection      |
+                | • business rules           |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Data Observability         |
+                |                            |
+                | row_count_monitor.py       |
+                | data_drift_monitor.py      |
+                | distribution_drift_monitor |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Pipeline Metrics Tracking  |
+                | pipeline_metrics.py        |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Machine Learning Pipeline  |
+                |                            |
+                | train_model.py             |
+                | predict.py                 |
+                | evaluate_model.py          |
+                +------------+---------------+
+                             |
+                             v
+                +----------------------------+
+                | Automated Tests (pytest)   |
+                +----------------------------+
+```
+
+---
+
+# Key Components
 
 ## 1. Data Pipeline
 
 The pipeline converts raw transaction data into a structured analytics dataset.
 
-Script:
+Script
 
 ```
 scripts/prepare_dataset.py
 ```
 
-Functions performed:
+Functions
 
-* load raw transaction dataset
-* transform fields
-* generate synthetic metadata
+* load raw dataset
+* transform columns
+* generate transaction metadata
 * convert dataset to parquet format
-* store dataset in the Bronze data layer
+* store dataset in bronze layer
 
-Output dataset:
+Output dataset
 
 ```
 data/bronze/transactions.parquet
@@ -120,30 +155,30 @@ data/bronze/transactions.parquet
 
 ---
 
-# 2. Data Quality Validation Framework
+# 2. Data Quality Framework
 
-The project implements a configurable **data validation engine**.
+A configurable validation engine performs automated checks on the dataset.
 
-Validation script:
+Script
 
 ```
 data_quality/validation_engine.py
 ```
 
-Checks implemented:
+Checks implemented
 
 * schema validation
 * null value detection
-* duplicate transaction detection
-* range validation for business rules
+* duplicate detection
+* business rule validation
 
-Validation rules are defined in:
+Validation rules
 
 ```
 data_quality/rules/transaction_rules.yaml
 ```
 
-Schema contract:
+Schema contract
 
 ```
 config/schema_contract.yaml
@@ -153,119 +188,160 @@ config/schema_contract.yaml
 
 # 3. Data Observability Monitoring
 
-Monitoring scripts detect abnormal data behavior.
+Monitoring scripts detect unexpected data behavior.
 
-Example monitor:
+Monitoring modules
 
 ```
-monitoring/row_count_monitor.py
+monitoring/
+    row_count_monitor.py
+    data_drift_monitor.py
+    distribution_drift_monitor.py
 ```
 
-Current monitoring checks:
+These checks detect
 
-* dataset row count anomaly detection
-* pipeline integrity validation
-
-These checks simulate features typically found in **data observability platforms**.
+* abnormal row counts
+* unexpected fraud rate changes
+* distribution drift in transaction amounts
 
 ---
 
-# 4. Machine Learning Pipeline
+# 4. Distribution Drift Detection
 
-The project includes a **fraud detection model** trained on the transaction dataset.
+The project implements **statistical drift detection** using the Kolmogorov–Smirnov test.
 
-ML module:
+Purpose
+
+Compare the distribution of current data with a baseline dataset to detect feature drift.
+
+Script
+
+```
+monitoring/distribution_drift_monitor.py
+```
+
+If drift is detected, the pipeline automatically fails.
+
+---
+
+# 5. Pipeline Metrics Tracking
+
+Each pipeline run records operational metrics.
+
+Script
+
+```
+monitoring/pipeline_metrics.py
+```
+
+Metrics collected
+
+* row count
+* average transaction amount
+* fraud rate
+* pipeline run timestamp
+
+Metrics stored in
+
+```
+metrics/pipeline_metrics.csv
+```
+
+These metrics can be used to build monitoring dashboards.
+
+---
+
+# 6. Machine Learning Pipeline
+
+The project includes a fraud detection model trained on transaction data.
+
+ML module
 
 ```
 ml/
 ```
 
-Components:
+Components
 
 | File              | Purpose                      |
 | ----------------- | ---------------------------- |
 | train_model.py    | trains fraud detection model |
-| predict.py        | generates fraud predictions  |
+| predict.py        | generates predictions        |
 | evaluate_model.py | validates model performance  |
 
-Model artifact:
+Model artifact
 
 ```
 models/fraud_model.pkl
 ```
 
-The pipeline automatically verifies that the trained model meets a minimum accuracy threshold.
+The pipeline verifies that model accuracy meets a minimum threshold.
 
 ---
 
-# 5. Automated Testing
+# 7. Automated Testing
 
-The project includes automated tests using pytest.
+Automated tests ensure pipeline reliability.
 
-Testing framework: **pytest**
-
-Test files:
+Testing framework
 
 ```
-tests/test_schema.py
-tests/test_business_rules.py
-tests/test_row_count.py
-tests/test_model.py
+pytest
 ```
 
-These tests verify:
+Test files
 
-* dataset schema integrity
+```
+tests/
+    test_schema.py
+    test_business_rules.py
+    test_row_count.py
+    test_model.py
+```
+
+These tests validate
+
+* schema integrity
 * business rule compliance
 * dataset size expectations
 * ML model artifacts
 
-Example test output:
+Example test output
 
 ```
-============================= test session starts ==============================
-
 tests/test_business_rules.py ..
 tests/test_model.py .
 tests/test_row_count.py .
 tests/test_schema.py .
 
-========================= 5 passed =========================
+5 passed
 ```
 
 ---
 
-# 6. Continuous Integration Pipeline
+# 8. Continuous Integration Pipeline
 
-The repository contains a CI pipeline implemented using GitHub Actions.
+The repository contains a CI pipeline using GitHub Actions.
 
-Workflow file:
+Workflow
 
 ```
 .github/workflows/data_validation.yml
 ```
 
-Pipeline steps:
+Pipeline steps
 
 1. Install dependencies
 2. Download dataset
 3. Prepare dataset
 4. Run data validation checks
 5. Run monitoring checks
-6. Train ML model
-7. Evaluate model performance
-8. Execute automated tests
-
-Example CI run:
-
-```
-Prepare dataset ✔
-Run validation ✔
-Monitoring checks ✔
-Train ML model ✔
-Evaluate model ✔
-Run pytest tests ✔
-```
+6. Run drift detection
+7. Record pipeline metrics
+8. Train ML model
+9. Evaluate model
+10. Run automated tests
 
 If any step fails, the pipeline stops automatically.
 
@@ -273,22 +349,26 @@ If any step fails, the pipeline stops automatically.
 
 # Technologies Used
 
-**Data Processing**
+### Data Processing
 
 * Python
 * Pandas
 * PyArrow
 
-**Machine Learning**
+### Machine Learning
 
 * scikit-learn
 * joblib
 
-**Testing**
+### Statistical Testing
+
+* SciPy
+
+### Testing
 
 * pytest
 
-**Automation**
+### Automation
 
 * GitHub Actions
 
@@ -309,6 +389,9 @@ data_quality/
 
 monitoring/
     row_count_monitor.py
+    data_drift_monitor.py
+    distribution_drift_monitor.py
+    pipeline_metrics.py
 
 ml/
     train_model.py
@@ -324,6 +407,8 @@ tests/
 config/
     schema_contract.yaml
 
+metrics/
+
 models/
 
 data/
@@ -336,37 +421,49 @@ data/
 
 # Running the Project Locally
 
-Install dependencies:
+Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-Prepare dataset:
+Prepare dataset
 
 ```
 python scripts/prepare_dataset.py
 ```
 
-Run validation checks:
+Run validation checks
 
 ```
 python data_quality/validation_engine.py
 ```
 
-Run monitoring checks:
+Run monitoring checks
 
 ```
 python monitoring/row_count_monitor.py
 ```
 
-Train ML model:
+Run drift detection
+
+```
+python monitoring/distribution_drift_monitor.py
+```
+
+Record pipeline metrics
+
+```
+python monitoring/pipeline_metrics.py
+```
+
+Train ML model
 
 ```
 python ml/train_model.py
 ```
 
-Run automated tests:
+Run tests
 
 ```
 pytest
@@ -374,107 +471,42 @@ pytest
 
 ---
 
-# Example Pipeline Flow
+# Future Enhancements
 
-```
-Git Push
-   ↓
-GitHub Actions Runner
-   ↓
-Dataset Preparation
-   ↓
-Data Validation
-   ↓
-Monitoring Checks
-   ↓
-ML Model Training
-   ↓
-Model Evaluation
-   ↓
-Automated Tests
-```
+Planned improvements include
 
----
-
-# Project Walkthrough (Interview Explanation)
-
-This project simulates a **data reliability platform used in modern analytics and ML systems**.
-
-The system processes transaction data through a pipeline that performs:
-
-* data preparation
-* automated validation
-* anomaly monitoring
-* machine learning model training
-* automated testing
-
-The pipeline is designed to **prevent unreliable data from propagating into analytics systems or ML models.**
-
-### Key Design Decisions
-
-**Data Quality Framework**
-
-A rule-based validation system ensures:
-
-* required columns exist
-* null values are detected
-* duplicate transactions are flagged
-* business rules are enforced
-
-Validation logic is configurable through YAML rules.
-
----
-
-**Data Observability**
-
-Monitoring scripts detect abnormal dataset behavior such as row-count anomalies.
-
----
-
-**Machine Learning Validation**
-
-A fraud detection model is trained on transaction data.
-The pipeline verifies model performance before allowing the pipeline to complete.
-
----
-
-**Automated Testing**
-
-Pytest ensures reliability of:
-
-* dataset schema
-* business rules
-* dataset size
-* ML artifacts
-
----
-
-**Continuous Integration**
-
-GitHub Actions automatically validates the entire pipeline whenever code changes occur.
-
----
-
-# Future Improvements
-
-Possible enhancements include:
-
-* feature drift detection
-* model drift monitoring
-* data lineage tracking
+* observability dashboard for pipeline metrics
 * Azure pipeline orchestration
 * experiment tracking for ML models
+* feature store simulation
+* alerting for pipeline failures
+* data lineage tracking
 
 ---
 
+# What This Project Demonstrates
+
+This project demonstrates skills across multiple engineering domains.
+
+| Area                 | Capability            |
+| -------------------- | --------------------- |
+| Data Engineering     | pipeline design       |
+| Data Reliability     | validation framework  |
+| Data Observability   | anomaly monitoring    |
+| MLOps                | drift detection       |
+| Machine Learning     | fraud detection model |
+| Software Engineering | automated testing     |
+| DevOps               | CI automation         |
+
+---
 
 # Author
 
-Santhoshini ch
+Santhoshini Ch
 
 Data Engineering & Data Reliability Portfolio Project
 
-This project demonstrates experience in:
+Demonstrates experience in:
 
 * data pipeline engineering
 * data quality validation
