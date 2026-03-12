@@ -2,14 +2,20 @@ def run_schema_check(df, expected_schema):
 
     actual_schema = dict(df.dtypes)
 
-    for column, dtype in expected_schema.items():
+    for column, expected_dtype in expected_schema.items():
 
         if column not in actual_schema:
             raise Exception(f"Schema check failed: Missing column {column}")
 
-        if str(actual_schema[column]) != dtype:
+        actual_dtype = str(actual_schema[column])
+
+        # treat string types as equivalent
+        if expected_dtype in ["object", "str"] and actual_dtype in ["object", "string", "str"]:
+            continue
+
+        if actual_dtype != expected_dtype:
             raise Exception(
-                f"Schema check failed for {column}: expected {dtype}, got {actual_schema[column]}"
+                f"Schema check failed for {column}: expected {expected_dtype}, got {actual_dtype}"
             )
 
     print("Schema validation passed")
