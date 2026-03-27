@@ -551,6 +551,6 @@ Demonstrates experience in:
 * CI/CD automation
 * observability dashboard for pipeline metrics
 
-# Resume Summary
+# Summary
 
 This project simulates a **modern data reliability platform** that validates data pipelines, monitors anomalies and drift, trains ML models, tracks metrics, and visualizes pipeline health through an observability dashboard.
